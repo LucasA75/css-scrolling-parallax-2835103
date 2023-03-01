@@ -1,0 +1,142 @@
+.site-nav {
+  z-index: 20;
+}
+
+.site-header {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(180deg, purple, rgb(59, 0, 59));
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  background-image: url(../images/hero.svg);
+  background-repeat: no-repeat;
+  background-size: 150%;
+  /* Con cover no funciona */
+  background-position: bottom;
+  background-attachment: fixed;
+  /* configuro la posicion original */
+  opacity: 0;
+  transform: translateY(300px) scale(1.2);
+  /* animation: slideUp 0.5s forwards; */
+  /* El forwars ayuda a que no vuelva alas propiedades
+  por defecto */
+  /* Esto lo que hace es hacer lo mismo pero al revez ... bastante bkn */
+  animation: clear 0.5s forwards;
+}
+
+.site-nav .nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.site-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  max-width: 100px;
+  height: 38px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(185, 87, 204);
+  opacity: 0;
+  transition: all 3s cubic-bezier(.30, .10, .42, 1.40);
+  transform: scaleX(0);
+
+}
+
+.site-nav .nav-link:hover::before {
+  opacity: 1;
+  background-color: rgba(82, 8, 97, 0.3);
+  transform: scaleX(1);
+}
+
+.site-header .header-title {
+  transform: translateY(10rem);
+  opacity: 0;
+  animation: clear 0.8s 0.4s forwards;
+}
+
+.site-header .header-subtitle {
+  transform: translateY(10rem);
+  opacity: 0;
+  animation: clear 1s 0.7s forwards;
+}
+
+.site-header .header-cue {
+  animation: clear 0.5s 1.5s forwards;
+  transform: translateY(2rem);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.site-header .header-cue-icon {
+  animation: slideDown 0.5s 1.8s forwards, pulse 2s 4s ease-in-out infinite;
+  /* Asi se encadenan animaciones */
+  transform: translateY(-2rem);
+  opacity: 1;
+}
+
+
+@keyframes slideUp {
+  from {
+    transform: translateY(300px) scale(1.3);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    /* Esto no es completamente necesario ya que va por defecto a 
+    las propiedades por defecto  pero se puede colocar una propiedad en animate para
+    sacar esto , interesante no ?*/
+    opacity: 0.6;
+  }
+}
+
+/* Con este keyframe nos ahoramos hacer un keyframe por cada elemento que queremos animar */
+@keyframes clear {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-2rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: none;
+    /* Esto es un poco enredado pero lo que hace es limpiar cualquier 
+    propiedad de transform y colocar uno nuevo */
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: none;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
